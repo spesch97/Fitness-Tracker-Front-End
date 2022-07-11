@@ -12,12 +12,7 @@ const NewActivity = ({ token }) => {
   const submitHandler = async (event) => {
     event.preventDefault();
     if (name && description) {
-      const newActivity = await postNewActivity(
-        token,
-        name,
-        description
-
-      );
+      await postNewActivity(token, name, description);
       navigate("/activities");
     } else {
       alert("Please fill out name and description");

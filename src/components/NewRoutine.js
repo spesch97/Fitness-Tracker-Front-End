@@ -12,13 +12,7 @@ const NewRoutine = ({ token }) => {
   const submitHandler = async (event) => {
     event.preventDefault();
     if (name && goal) {
-      const newRoutine = await postNewRoutine(
-        token,
-        name,
-        goal,
-        isPublic,
-
-      );
+      await postNewRoutine(token, name, goal, isPublic);
       navigate("/routines");
     } else {
       alert("Please fill out name and goal");
@@ -31,12 +25,12 @@ const NewRoutine = ({ token }) => {
       <input minLength={1} onChange={(e) => setName(e.target.value)} />
       <label className="textBlue">Goal</label>
       <input minLength={1} onChange={(e) => setGoal(e.target.value)} />
-        <label className="textBlue">Public</label>
-        <input
-          className="checkbox"
-          type="checkbox"
-          onChange={(e) => setIsPublic(e.target.checked)}
-        />
+      <label className="textBlue">Public</label>
+      <input
+        className="checkbox"
+        type="checkbox"
+        onChange={(e) => setIsPublic(e.target.checked)}
+      />
       <div className="creatingContainer">
         <button className="button">Submit</button>
       </div>

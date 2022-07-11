@@ -39,13 +39,26 @@ export const fetchLogin = async (username, password) => {
   }
 };
 
+export const fecthUsersRoutines = async (token, username) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const fetchAllRoutines = async () => {
   try {
     const response = await fetch(`${BASE_URL}/routines`);
     const data = await response.json();
-    //below data needs to be data.data something probably
-    const fetchedRoutines = data;
-    return fetchedRoutines;
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -72,23 +85,12 @@ export const postNewRoutine = async (token, name, goal, isPublic) => {
   }
 };
 
-export const fecthUsersRoutines = async (username) => {
-  try {
-    console.log(username);
-    const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const deleteRoutine = async (token, routineId, routines, setRoutines) => {
+export const deleteRoutinesFromRoutines = async (
+  token,
+  routineId,
+  routines,
+  setRoutines
+) => {
   try {
     const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
       method: "DELETE",
@@ -99,14 +101,85 @@ export const deleteRoutine = async (token, routineId, routines, setRoutines) => 
     });
     const data = await response.json();
     if (data) {
-        const newRoutines = routines.filter(routine => routine.id !== routineId)
-        setRoutines(newRoutines);
+      const newRoutines = routines.filter(
+        (routine) => routine.id !== routineId
+      );
+      setRoutines(newRoutines);
     }
   } catch (error) {
     console.log(error);
   }
 };
 
+export const deleteRoutinesFromProfile = async (
+  token,
+  routineId,
+  profiles,
+  setProfiles
+) => {
+  try {
+    const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (data) {
+      const newRoutines = profiles.filter(
+        (routine) => routine.id !== routineId
+      );
+      setProfiles(newRoutines);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateRoutines = async (
+  setRoutineId,
+  token,
+  routineId,
+  profiles,
+  setProfiles,
+  setName,
+  setGoal,
+  name,
+  goal,
+) => {
+  try {
+
+    const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: name,
+        goal: goal,
+      }),
+    });
+    const data = await response.json();
+    if (data) {
+      const newProfile = profiles.map((profile) => {
+        if (profile.id === routineId) {
+          return data;
+        } else {
+          return profile;
+        }
+      });
+      setProfiles(newProfile);
+
+      setName("");
+      setGoal("");
+      setRoutineId("");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const fetchAllActivities = async () => {
   try {
     const response = await fetch(`${BASE_URL}/activities`, {
