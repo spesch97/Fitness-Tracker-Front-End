@@ -1,7 +1,18 @@
+import React from "react";
 import { useState } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Home, Profile, Login, Register, Routines, Activities, CreateNew } from "./routes";
+import { Layout, Menu } from "antd";
+import {
+  Home,
+  Profile,
+  Login,
+  Register,
+  Routines,
+  Activities,
+  CreateNew,
+} from "./routes";
+const { Header, Content, Footer } = Layout;
 
 function App() {
   const [username, setUsername] = useState(
@@ -10,39 +21,44 @@ function App() {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   return (
-    <div className="App">
-      <header className="nav_header">
-        <Link className="nav" to="/">
-          Home
-        </Link>
-        <Link className="nav" to="/activities">
-          Activities
-        </Link>
-        <Link className="nav" to="/routines">
-          Routines
-        </Link>
-        {token ? (
-          <Link className="nav" to={`/${username}/routines`}>
-            Profile
+    <Layout className="App">
+      <Header className="nav_header">
+        <Menu theme="dark" mode="horizontal">
+          <Link className="nav" to="/">
+            Home
           </Link>
-        ) : null}
-        {token ? null : (
-          <Link className="nav" to="users/register">
-            Register
+          <Link className="nav" to="/activities">
+            Activities
           </Link>
-        )}
-        {token ? null : (
-          <Link className="nav" to="users/login">
-            Login
+          <Link className="nav" to="/routines">
+            Routines
           </Link>
-        )}
-        {token ? (
-          <Link className="nav" to="/new-routine-activity">
-            New
-          </Link>
-        ) : null}
-      </header>
-      <>
+          {token ? (
+            <Link className="nav" to={`/${username}/routines`}>
+              Profile
+            </Link>
+          ) : null}
+          {token ? null : (
+            <Link className="nav" to="users/register">
+              Register
+            </Link>
+          )}
+          {token ? null : (
+            <Link className="nav" to="users/login">
+              Login
+            </Link>
+          )}
+          {token ? (
+            <Link className="nav" to="/new-routine-activity">
+              Create New
+            </Link>
+          ) : null}
+        </Menu>
+      </Header>
+      <Content className="contentBody">
+        <div className="site-layout-content">
+          <h1>Fitness Tracker</h1>
+        </div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -79,13 +95,25 @@ function App() {
               />
             }
           />
-          <Route path="routines" element={<Routines token={token} username={username}/>} />
-          <Route path="activities" element={<Activities />} />
-          <Route path="new-routine-activity" element={<CreateNew token={token} />} />
+          <Route
+            path="routines"
+            element={<Routines token={token} username={username} />}
+          />
+          <Route path="activities" element={<Activities token={token} />} />
+          <Route
+            path="new-routine-activity"
+            element={<CreateNew token={token} />}
+          />
         </Routes>
-      </>
-      <footer>Created by Sarah Pesch ©2022</footer>
-    </div>
+      </Content>
+      <Footer
+        style={{
+          textAlign: "center",
+        }}
+      >
+        Created by Sarah Pesch ©2022
+      </Footer>
+    </Layout>
   );
 }
 

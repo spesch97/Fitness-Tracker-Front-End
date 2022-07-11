@@ -145,10 +145,13 @@ export const updateRoutines = async (
   setProfiles,
   setName,
   setGoal,
+  setIsPublic,
   name,
   goal,
+  isPublic
 ) => {
   try {
+    console.log("ispublic", isPublic);
 
     const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
       method: "PATCH",
@@ -159,9 +162,11 @@ export const updateRoutines = async (
       body: JSON.stringify({
         name: name,
         goal: goal,
+        isPublic: isPublic,
       }),
     });
     const data = await response.json();
+
     if (data) {
       const newProfile = profiles.map((profile) => {
         if (profile.id === routineId) {
@@ -171,7 +176,6 @@ export const updateRoutines = async (
         }
       });
       setProfiles(newProfile);
-
       setName("");
       setGoal("");
       setRoutineId("");
@@ -188,7 +192,6 @@ export const fetchAllActivities = async () => {
       },
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -211,6 +214,100 @@ export const postNewActivity = async (token, name, description) => {
     const data = await response.json();
     console.log(data);
     return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateActivity = async (
+  token,
+  activityId,
+  name,
+  description,
+  setActivities,
+  activities,
+  setActivityId,
+  setName,
+  setDescription
+) => {
+  try {
+    const response = await fetch(`${BASE_URL}/activities/${activityId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: name,
+        description: description,
+      }),
+    });
+    const data = await response.json();
+
+    if (data) {
+      const newActivities = activities.map((activity) => {
+        if (activity.id === activityId) {
+          return data;
+        } else {
+          return activity;
+        }
+      });
+      setActivities(newActivities);
+      setName("");
+      setDescription("");
+      setActivityId("");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addActivity = async (
+  token,
+  routineId,
+  activityId,
+  count,
+  duration,
+  setCount,
+  setDuration,
+  setRoutineActivityId,
+  profiles,
+  setProfiles,
+  setAddRoutineActivityId
+) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/routines/${routineId}/activities`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          routineId: routineId,
+          activityId: activityId,
+          count: count,
+          duration: duration,
+        }),
+      }
+    );
+
+    const data = await response.json();
+    if (data) {
+      const newProfile = profiles.map((profile) => {
+        if (profile.routineId === routineId) {
+          return data;
+        } else {
+          return profile;
+        }
+      });
+      setProfiles(newProfile);
+      setCount("");
+      setDuration("");
+      setRoutineActivityId("");
+      setAddRoutineActivityId("");
+    }
   } catch (error) {
     console.log(error);
   }

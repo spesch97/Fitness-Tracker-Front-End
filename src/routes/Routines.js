@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { fetchAllRoutines } from "../api";
 
 
-const Posts = ({ token, username }) => {
+const Posts = () => {
   const [routines, setRoutines] = useState([]);
 
   useEffect(() => {

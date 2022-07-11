@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postNewActivity, postNewRoutine } from "../api";
+import { postNewActivity } from "../api";
 
 const NewActivity = ({ token }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [isPublic, setIsPublic] = useState(false);
 
   const navigate = useNavigate();
 
