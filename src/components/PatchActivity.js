@@ -28,7 +28,9 @@ const PatchActivity = ({
   };
 
   return (
-    <form className="columnContainer" onSubmit={submitHandler}>
+    <div classname="textblue">
+    <h4 className="textBlue">Edit Activity</h4>
+    <form onSubmit={submitHandler}>
       <label className="textBlue">Name</label>
       <input onChange={(e) => setName(e.target.value)} />
       <label className="textBlue">Description</label>
@@ -37,6 +39,7 @@ const PatchActivity = ({
         <button className="button">Submit</button>
       </div>
     </form>
+    </div>
   );
 };
 

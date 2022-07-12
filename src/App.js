@@ -55,12 +55,12 @@ function App() {
           ) : null}
         </Menu>
       </Header>
+      <div className="title">
+        <h1>Fitness Tracker</h1>
+      </div>
       <Content className="contentBody">
-        <div className="site-layout-content">
-          <h1>Fitness Tracker</h1>
-        </div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home token={token} />} />
           <Route
             path="users/login"
             element={
@@ -95,10 +95,7 @@ function App() {
               />
             }
           />
-          <Route
-            path="routines"
-            element={<Routines token={token} username={username} />}
-          />
+          <Route path="routines" element={<Routines />} />
           <Route path="activities" element={<Activities token={token} />} />
           <Route
             path="new-routine-activity"
@@ -106,13 +103,7 @@ function App() {
           />
         </Routes>
       </Content>
-      <Footer
-        style={{
-          textAlign: "center",
-        }}
-      >
-        Created by Sarah Pesch ©2022
-      </Footer>
+      <Footer className="footer">Created by Sarah Pesch ©2022</Footer>
     </Layout>
   );
 }

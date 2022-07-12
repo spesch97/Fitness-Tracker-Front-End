@@ -1,3 +1,5 @@
+import React from "react";
+import { Input, Button } from "antd";
 import { useState } from "react";
 import { addActivity } from "../api";
 
@@ -22,27 +24,31 @@ const AddActivityToRoutine = ({
       count,
       duration,
       setCount,
-     setDuration,
+      setDuration,
       setRoutineActivityId,
       profiles,
       setProfiles,
       setAddRoutineActivityId
-      
     );
   };
 
   return (
-    <form className="columnContainer" onSubmit={submitHandler}>
-      <label className="textBlue">Count</label>
-      <input onChange={(e) => setCount(e.target.value)} />
-      <label className="textBlue">Duration</label>
-      <input onChange={(e) => setDuration(e.target.value)} />
-      <label className="textBlue">Activity Id</label>
-      <input onChange={(e) => setRoutineActivityId(e.target.value)} />
-      <div className="creatingContainer">
-        <button className="button">Submit</button>
-      </div>
-    </form>
+    <div className="textBlue">
+      <h4>Add Activity to Routine</h4>
+      <form className="columnContainer" onSubmit={submitHandler}>
+        <label className="textBlue">Count</label>
+        <Input onChange={(e) => setCount(e.target.value)} />
+        <label className="textBlue">Duration</label>
+        <Input onChange={(e) => setDuration(e.target.value)} />
+        <label className="textBlue">Activity Id</label>
+        <Input onChange={(e) => setRoutineActivityId(e.target.value)} />
+        <div className="creatingContainer">
+          <Button type="primary" className="button">
+            Submit
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 

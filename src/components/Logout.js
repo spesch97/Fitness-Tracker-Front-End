@@ -5,17 +5,18 @@ const Logout = ({ token, setToken, setUsername }) => {
   if (token) {
     return (
       <div>
-          <button
-        onClick={() => {
-          window.localStorage.clear();
-          setToken();
-          setUsername('')
-          navigate("/");
-        }}
-      >
-        Logout
-      </button>
-    </div>
+        <button
+          className="button"
+          onClick={() => {
+            window.localStorage.clear();
+            setToken();
+            setUsername("");
+            navigate("/");
+          }}
+        >
+          Logout
+        </button>
+      </div>
     );
   }
 };

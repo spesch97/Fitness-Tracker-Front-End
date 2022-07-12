@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postNewActivity } from "../api";
+import { Input } from "antd";
 
 const NewActivity = ({ token }) => {
   const [name, setName] = useState("");
@@ -19,15 +20,18 @@ const NewActivity = ({ token }) => {
   };
 
   return (
-    <form className="columnContainer" onSubmit={submitHandler}>
-      <label className="textBlue">Name</label>
-      <input minLength={1} onChange={(e) => setName(e.target.value)} />
-      <label className="textBlue">Description</label>
-      <input minLength={1} onChange={(e) => setDescription(e.target.value)} />
-      <div className="creatingContainer">
-        <button className="button">Submit</button>
-      </div>
-    </form>
+    <div className="createNewContainer">
+      <h4 className="textBlue">Create New Activity</h4>
+      <form onSubmit={submitHandler}>
+        <label className="textBlue">Name</label>
+        <Input onChange={(e) => setName(e.target.value)} />
+        <label className="textBlue">Description</label>
+        <Input onChange={(e) => setDescription(e.target.value)} />
+        <div className="creatingContainer">
+          <button className="button">Submit</button>
+        </div>
+      </form>
+    </div>
   );
 };
 

@@ -9,12 +9,65 @@
   justify-content: center;
   font-size: 2vh;
   color: white;
+
   
 }
 .nav {
   padding:15px;
   text-decoration: none;
   color: white;
+}
+
+.title {
+  font-size: larger;
+  color: #45526a;
+  border-bottom: solid 2px #45526a;
+
+}
+
+h6{
+  margin:5px;
+}
+
+.contentBody {
+  margin:30px;
+  color:#45526a;
+}
+
+.activitiesContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.activityContainer {
+  width: 300px;
+  background-color: gainsboro;
+  margin: 5px;
+  border: solid 1px #45526a;
+  padding:10px;
+}
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.textBlue{
+  color: #45526a;
+
+}
+.button {
+  margin: 15px;
+  color:white;
+  background-color: #45526a;
+}
+
+
+.footer {
+  border-top: solid 2px #45526a;
+  padding-top: 20px;
+  color: #45526a;
+
 }
 
 @keyframes App-logo-spin {

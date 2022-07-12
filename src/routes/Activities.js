@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { fetchAllActivities } from "../api";
 import PatchActivity from "../components/PatchActivity";
 
-const Activities = ({ token, username }) => {
+const Activities = ({ token }) => {
   const [activities, setActivities] = useState([]);
-  const [activityId, setActivityId] = useState('');
+  const [activityId, setActivityId] = useState("");
 
   useEffect(() => {
     const getActivities = async () => {
@@ -17,6 +17,7 @@ const Activities = ({ token, username }) => {
 
   return (
     <>
+      <h2>Activities</h2>
       {activityId ? (
         <PatchActivity
           token={token}
@@ -26,26 +27,32 @@ const Activities = ({ token, username }) => {
           activities={activities}
         />
       ) : null}
-      {activities.map((activity) => {
-
-        return (
-          <div className="postContainer" key={activity.id}>
-            <h3>{activity.name}</h3>
-            <h6>Activity Id</h6>
-            <h6>{activity.id}</h6>
-            <h6>Description</h6>
-            <h5>{activity.description}</h5>
-            {token ?
-            <button
-              className="button"
-              type="button"
-              onClick={() => setActivityId(activity.id)}
-            >
-              Edit
-            </button> : null }
-          </div>
-        );
-      })}
+      <div className="activitiesContainer">
+        {activities.map((activity) => {
+          return (
+            <div className="activityContainer" key={activity.id}>
+              <h3>{activity.name}</h3>
+              <div className="rowContainer">
+                <h6>Activity Id:</h6>
+                <h6>{activity.id}</h6>
+              </div>
+              <div className="rowContainer">
+                <h6>Description:</h6>
+                <h6>{activity.description}</h6>
+              </div>
+              {token ? (
+                <button
+                  className="button"
+                  type="button"
+                  onClick={() => setActivityId(activity.id)}
+                >
+                  Edit
+                </button>
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };
